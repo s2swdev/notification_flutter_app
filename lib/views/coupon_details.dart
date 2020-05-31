@@ -6,7 +6,7 @@ import 'package:flutterapp/widgets/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CouponDetails extends StatefulWidget {
-  final List couponDetails; //restaurantId;
+  final List couponDetails;
   CouponDetails(this.couponDetails);
   @override
   _CouponDetailsState createState() => _CouponDetailsState(couponDetails);
@@ -73,7 +73,7 @@ class _CouponDetailsState extends State<CouponDetails> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.network(
-                      data[0]["image_url"],
+                      data[0]["restaurant"]["image_url"],
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -105,7 +105,7 @@ class _CouponDetailsState extends State<CouponDetails> {
             SizedBox(height: 10.0),
 
             Text(
-              data[0]["name"],
+              data[0]["restaurant"]["name"],
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w800,
@@ -121,13 +121,13 @@ class _CouponDetailsState extends State<CouponDetails> {
                     starCount: 5,
                     color: Constants.ratingBG,
                     allowHalfRating: true,
-                    rating: double.parse(data[0]["rating"]),
+                    rating: double.parse(data[0]["restaurant"]["rating"]),
                     size: 12.0,
                   ),
                   SizedBox(width: 10.0),
 
                   Text(
-                    data[0]["rating"] + " (" +  data[0]["review_count"] + " Reviews)",
+                    data[0]["restaurant"]["rating"] + " (" +  data[0]["restaurant"]["review_count"] + " Reviews)",
                     style: TextStyle(
                       fontSize: 12.0,
                     ),
@@ -141,7 +141,7 @@ class _CouponDetailsState extends State<CouponDetails> {
               child: Row(
                 children: <Widget>[
                   Text(
-                    data[0]["category_1"] + ", " + data[0]["category_2"] + ", " + data[0]["category_3"],
+                    data[0]["restaurant"]["review_count"] + " reviews",
                     style: TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.w500,
@@ -150,7 +150,7 @@ class _CouponDetailsState extends State<CouponDetails> {
                   SizedBox(width: 10.0),
 
                   Text(
-                    " |  " + data[0]["price"] + " (price)",
+                    " |  " + data[0]["restaurant"]["price"] + " (price)",
                     style: TextStyle(
                       fontSize: 12.0,
                       fontWeight: FontWeight.w500,
@@ -159,6 +159,89 @@ class _CouponDetailsState extends State<CouponDetails> {
                   ),
 
                 ],
+              ),
+            ),
+
+            SizedBox(height: 20.0),
+
+            Text(
+              "Coupon Details",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w800,
+              ),
+              maxLines: 2,
+            ),
+
+            SizedBox(height: 1.0),
+
+            ListTile(
+              title: Text(
+                "Coupon start date",
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+
+              subtitle: Text(
+                data[0]["Coupon_Start_date"],
+              ),
+            ),
+
+            ListTile(
+              title: Text(
+                "Coupon end date",
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+
+              subtitle: Text(
+                data[0]["Coupon_Expiry_date"],
+              ),
+            ),
+
+            ListTile(
+              title: Text(
+                "Coupon code",
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+
+              subtitle: Text(
+                data[0]["CouponCode"],
+              ),
+            ),
+
+            ListTile(
+              title: Text(
+                "Discount offered",
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+
+              subtitle: Text(
+                data[0]["Discount_offered"],
+              ),
+            ),
+
+            ListTile(
+              title: Text(
+                "Fine print",
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+
+              subtitle: Text(
+                data[0]["Fineprint"],
               ),
             ),
 
@@ -185,7 +268,7 @@ class _CouponDetailsState extends State<CouponDetails> {
               ),
 
               subtitle: Text(
-                data[0]["display_address"],
+                data[0]["Address"]["Street_1"],
               ),
 
               trailing: IconButton(
@@ -209,7 +292,7 @@ class _CouponDetailsState extends State<CouponDetails> {
               ),
 
               subtitle: Text(
-                data[0]["Org_display_phone"],
+                data[0]["restaurant"]["phone"],
               ),
               trailing: IconButton(
                 icon: Icon(
@@ -217,31 +300,7 @@ class _CouponDetailsState extends State<CouponDetails> {
                   size: 20.0,
                 ),
                 onPressed: (){
-                  launch("tel:" + data[0]["Org_display_phone"]);
-                },
-                tooltip: "Map",
-              ),
-            ),
-
-            ListTile(
-              title: Text(
-                "Menu",
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-
-              subtitle: Text(
-                data[0]["menu_url"],
-              ),
-              trailing: IconButton(
-                icon: Icon(
-                  Icons.menu,
-                  size: 20.0,
-                ),
-                onPressed: (){
-                  launchURL(data[0]["menu_url"]);
+                  launch("tel:" + data[0]["restaurant"]["phone"]);
                 },
                 tooltip: "Map",
               ),

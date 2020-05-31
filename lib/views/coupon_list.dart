@@ -26,13 +26,13 @@ class _CartScreenState extends State<CartScreen> with AutomaticKeepAliveClientMi
   }
 
   Future<String> makeRequest_details(int i) async {
-    String url = Constants.apiLink + 'product/read_detail.php?id=' + data[i]["restaurant"]["Org_id"];
+    String url = Constants.apiLink + 'product/read_coupon.php';
     var response = await http.get(Uri.encodeFull(url),
         headers: {"Accept": "application/json"});
 
     setState(() {
       var extractdata = json.decode(response.body);
-      data_detail = extractdata["restaurants"];
+      data_detail = extractdata["records"];
 
       Navigator.push(
           context,
